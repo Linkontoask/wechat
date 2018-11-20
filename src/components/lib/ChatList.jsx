@@ -6,7 +6,7 @@ class ChatList extends Component{
     render() {
         return (
             <div className="ChatList">
-                content
+                ChatList
             </div>
         )
     }
