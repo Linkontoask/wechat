@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../style/NavTag.sass'
 import {Icon, Row, Col } from 'antd'
 import { connect } from 'react-redux'
-import { NavIndex } from '../actions/NavTag'
+import { NavIndex, Name } from '../actions/NavTag'
 
 class NavTag extends Component{
     constructor(props) {
@@ -30,7 +30,7 @@ class NavTag extends Component{
                 <Row gutter={8} justify="space-between">
                     {this.state.nav.map((item, index)=>{
                         return (
-                            <Col key={index} span={6} onTouchEnd={this.test.bind(this, index)} className={this.props.getIndex() === index ? 'focus' : 'burl'}>
+                            <Col key={index} span={6} onTouchEnd={this.test.bind(this, index, item.name)} className={this.props.getIndex() === index ? 'focus' : 'burl'}>
                                 <Icon type={item.icon} style={{'fontSize': '18px'}} />
                                 <p>{item.name}</p>
                             </Col>
@@ -41,9 +41,9 @@ class NavTag extends Component{
         )
     }
 
-    test(index) {
+    test(index, name) {
         this.props.dispatch(NavIndex(index));
-        console.log(this.props.getIndex());
+        this.props.dispatch(Name(name));
     }
 }
 function connectState(state) {

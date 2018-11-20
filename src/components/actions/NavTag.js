@@ -6,3 +6,10 @@ export const NavIndex = index => {
         index: index
     }
 };
+
+export const Name = Text => {
+    return {
+        type: types.FETCH_NAME,
+        text: Text
+    }
+};

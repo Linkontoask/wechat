@@ -1,7 +1,8 @@
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
-    index: 0
+    index: 0,
+    text: '微信'
 };
 
 export const UpdateNav = (state = initialState, action) => {
@@ -10,6 +11,11 @@ export const UpdateNav = (state = initialState, action) => {
             return {
                 ...state,
                 index: action.index
+            };
+        case types.FETCH_NAME:
+            return {
+                ...state,
+                text: action.text
             };
         default: break;
     }
