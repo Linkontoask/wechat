@@ -1,2 +1,51 @@
+$h: calc(100% - 5.6rem)
+$h2: calc(100% - 3.2rem)
 .ChatList
-  height: calc(100% - 5.6rem)
+  height: $h
+  width: 100%
+  background-color: #ececec
+  .swiper-box
+    height: $h2
+    width: 100%
+    background-color: white
+    overflow-y: scroll
+    overflow-x: hidden
+  .info-content
+    text-align: center
+    height: $h2
+    padding-top: 12rem
+    color: #c5c5c5
+    background-color: white
+    user-select: none
+  .swiper-item
+    padding-left: 1rem
+    position: relative
+    border-top: 1px solid #d8d8d8
+  .swiper-item:active
+    background-color: #f0f8ff
+  .swiper-item:last-child
+    border-bottom: 1px solid #d8d8d8
+.ant-list-item
+  position: relative
+  left: 0
+  transition: left .4s
+.ant-list-item-content
+  flex: 0
+.ant-avatar
+  width: 3rem
+  height: 3rem
+  img
+    border-radius: 0.2rem
+.ant-list-item-meta-avatar
+  margin-right: .5rem
+.ant-list-item-meta-title
+  text-align: left
+  margin-top: .4rem
+  margin-bottom: 0
+.ant-list-item-meta-description
+  height: 1.2rem
+  width: 50%
+  text-align: left
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
