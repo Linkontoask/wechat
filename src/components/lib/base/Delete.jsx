@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import '../../style/base/Delete.sass'
 
 class DeleteWechat extends Component{
-    handlDelete;
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
-
     render() {
         return (
-            <div className="delete-wechat" style={{right: this.props.left}} onClick={this.props.handlDelete}>
+            <div className="delete-wechat"  onTouchEnd={this.props.handlDelete}>
                 删除
             </div>
         )
     }
 }
+
+DeleteWechat.propTypes = {
+    handlDelete: PropTypes.func.isRequired
+};
 
 export default DeleteWechat;

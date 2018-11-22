@@ -7,9 +7,17 @@ export const NavIndex = index => {
     }
 };
 
-export const Name = Text => {
+export const FixedPage = Text => {
     return {
         type: types.FETCH_NAME,
-        text: Text
+        text: Text,
+        old: 0
+    }
+};
+
+export const ShowScreen = bool => {
+    return {
+        type: types.SCREEN_SHOW,
+        value: bool
     }
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../style/NavTag.sass'
 import {Icon, Row, Col } from 'antd'
 import { connect } from 'react-redux'
-import { NavIndex, Name } from '../actions/NavTag'
+import { NavIndex, FixedPage } from '../actions/NavTag'
 
 let url = ['/', '/contacts', '/friends', '/setting'];
 class NavTag extends Component{
@@ -35,7 +35,7 @@ class NavTag extends Component{
                 <Row gutter={8} justify="space-between">
                     {this.state.nav.map((item, index)=>{
                         return (
-                            <Col key={index} span={6} onTouchEnd={this.test.bind(this, index, item.name, item.url)} className={this.props.getIndex() === index ? 'focus' : 'burl'}>
+                            <Col key={index} span={6} onTouchEnd={this.swiper.bind(this, index, item.name, item.url)} className={this.props.getIndex() === index ? 'focus' : 'burl'}>
                                 <Icon type={item.icon} style={{'fontSize': '18px'}} />
                                 <p>{item.name}</p>
                             </Col>
@@ -46,9 +46,9 @@ class NavTag extends Component{
         )
     }
 
-    test(index, name, path) {
+    swiper(index, name, path) {
         this.props.dispatch(NavIndex(index));
-        this.props.dispatch(Name(name));
+        this.props.dispatch(FixedPage(name));
         this.props.history.push(path);
     }
 
@@ -60,7 +60,7 @@ class NavTag extends Component{
 function connectState(state) {
     return {
         getIndex() {
-            var current = 0;
+            let current = 0;
             if (!state) {
                 url.forEach((item, index)=>{
                     if (item === window.location.pathname) {

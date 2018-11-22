@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ShowScreen } from '../actions/NavTag'
 import '../style/ChatList.sass'
 import SearchWechat from './base/Search'
 import Hammer from 'react-hammerjs'
@@ -8,15 +9,16 @@ import { Icon, List, Avatar } from 'antd'
 
 class ChatList extends Component{
     deltaTime;
-    constructor() {
-        super();
+    additionalEvent;
+    constructor(props) {
+        super(props);
         this.state = {
             right: [],
             data: [
-                {title: 'Ant Design Title 1',},
-                {title: 'Ant Design Title 2',},
-                {title: 'Ant Design Title 3',},
-                {title: 'Ant Design Title 4',},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 2',id: 1, type: 'normal'},
+                {title: 'Ant Design Title 3',id: 2, type: 'normal'},
+                {title: 'Ant Design Title 4',id: 3, type: 'normal'},
             ]
         }
     }
@@ -30,8 +32,9 @@ class ChatList extends Component{
                         return (
                             <Hammer
                                 onPanEnd={this.onLeft.bind(this, index)}
-                                onTap={this.onTap.bind(this)}
-                                direction='DIRECTION_LEFT'
+                                options={{
+                                    direction: ['DIRECTION_LEFT', 'DIRECTION_RIGHT'],
+                                }}
                                 key={index}
                             >
                                 <div className="swiper-item">
@@ -40,6 +43,7 @@ class ChatList extends Component{
                                             avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                                             title={item.title}
                                             description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                            onClick={this.onTap.bind(this, item.id, item.type)}
                                         />
                                         <Delete handlDelete={ChatList.handlDelete.bind(this, index)} />
                                     </List.Item>
@@ -60,10 +64,18 @@ class ChatList extends Component{
     onLeft(index, e) {
         this.Initialization();
         let arr = Object.assign([], this.state.right);
-        if (-e.deltaX >= 100 || e.deltaTime <= 150) {
-            arr[index] = -100
+        if (e.additionalEvent === 'panleft') {
+            if (-e.deltaX >= 100 || e.deltaTime <= 150) {
+                arr[index] = -100
+            } else {
+                arr[index] = 0
+            }
         } else {
-            arr[index] = 0
+            if (e.deltaX >= 100 || e.deltaTime <= 150) {
+                arr[index] = 0
+            } else {
+                arr[index] = -100
+            }
         }
         this.setState({
             right: arr,
@@ -76,8 +88,13 @@ class ChatList extends Component{
             right: arr,
         });
     }
-    onTap() {
-        this.Initialization()
+    onTap(id, type) {
+        this.Initialization();
+        if (type === 'normal') this.props.history.push(`/chatInterface/${ChatList.enCode(id + '+link')}`);
+        this.props.dispatch(ShowScreen(true));
+    }
+    static enCode(value) {
+        return window.btoa(unescape(encodeURIComponent(value)));
     }
     static handlDelete(index) {
         // 移除之前的回调

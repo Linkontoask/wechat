@@ -5,8 +5,10 @@
   "dependencies": {
     "antd": "^3.10.8",
     "babel-plugin-import": "^1.11.0",
+    "camelize": "^1.0.0",
     "history": "^4.7.2",
     "node-sass": "^4.10.0",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-app-rewired": "^1.6.2",
     "react-dom": "^16.6.3",

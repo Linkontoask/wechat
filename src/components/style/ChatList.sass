@@ -8,7 +8,7 @@ $h2: calc(100% - 3.2rem)
     height: $h2
     width: 100%
     background-color: white
-    overflow-y: scroll
+    overflow-y: auto
     overflow-x: hidden
   .info-content
     text-align: center
@@ -42,9 +42,14 @@ $h2: calc(100% - 3.2rem)
   text-align: left
   margin-top: .4rem
   margin-bottom: 0
+.ant-list-item-meta
+  flex: 0
+  width: calc(100% - 1rem)
+.ant-list-item-meta-content
+  flex: 0
+  width: calc(100% - 46px)
 .ant-list-item-meta-description
   height: 1.2rem
-  width: 50%
   text-align: left
   overflow: hidden
   white-space: nowrap

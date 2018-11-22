@@ -6,7 +6,7 @@ import * as serviceWorker from './components/serviceWorker';
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import { UpdateNav } from './components/reducers/cutNav'
+import { UpdateNav } from './components/reducers/Update'
 
 const store = createStore(UpdateNav);
 
