@@ -5,11 +5,10 @@ const initialState = {
     text: '微信',
     value: false
 };
-let oldIndex = 0;
+let initState = ['微信','通讯录'];
 export const UpdateNav = (state = initialState, action) => {
     switch (action.type) {
         case types.UPDATE_INDEX:
-            oldIndex = action.index;
             return {
                 ...state,
                 index: action.index
@@ -17,13 +16,13 @@ export const UpdateNav = (state = initialState, action) => {
         case types.FETCH_NAME:
             return {
                 ...state,
-                text: action.text,
-                old: oldIndex
+                text: action.text
             };
         case types.SCREEN_SHOW:
             return {
                 ...state,
-                value: action.value
+                value: action.value,
+                text: initState[state.index]
             };
         default: return state;
     }

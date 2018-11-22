@@ -10,8 +10,7 @@ export const NavIndex = index => {
 export const FixedPage = Text => {
     return {
         type: types.FETCH_NAME,
-        text: Text,
-        old: 0
+        text: Text
     }
 };
 
