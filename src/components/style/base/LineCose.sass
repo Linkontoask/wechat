@@ -1,0 +1,50 @@
+.LineCose
+  max-height: 5.6rem
+  display: flex
+  align-items: center
+  padding: .2rem 0
+  &+&
+    margin-top: .6rem
+  img
+    width: 2rem
+    height: 2rem
+    border-radius: 0.4rem
+    flex-grow: 0
+    flex-shrink: 0
+  p
+    position: relative
+    max-width: calc(100% - 5.2rem)
+    text-align: left
+    margin: 0 0.6rem
+    padding: 0.4rem 0.8rem
+    background-color: #434250
+    color: white
+    font-size: 0.7rem
+    border-radius: 0.2rem
+    letter-spacing: .03rem
+  &[data-type="1"]
+    flex-direction: row
+  &[data-type="0"]
+    flex-direction: row-reverse
+  p[data-type="1"]
+    background-color: white
+    color: #333
+    border: 1px solid #e6e6e6
+  p:after,p:before
+    border: 0 solid transparent
+    content: ' '
+    height: 0
+    left: 100%
+    top: 50%
+    margin-top: -10px
+    position: absolute
+  p[data-type="1"]:before
+    border-width: 10px
+    border-right-color: white
+    left: -17px
+  p[data-type="0"]:after
+    border-width: 10px
+    border-left-color: #434250
+    left: auto
+    right: -16px
+

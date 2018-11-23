@@ -9,7 +9,7 @@ class NavState extends Component{
         return (
             <div className="NavState">
                 {this.props.getState().value && <div className="back" onTouchEnd={this.back.bind(this)}>
-                    <Icon type="left" style={{fontSize: 20}} />
+                    <Icon type="left" style={{fontSize: 16}} />
                     返回
                 </div>}
                 {this.props.getState().text}
