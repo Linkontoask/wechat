@@ -1,8 +1,14 @@
+@keyframes linearOpacity
+  0%
+    opacity: 0
+  100%
+    opacity: 1
 .LineCose
   max-height: 5.6rem
   display: flex
   align-items: center
   padding: .2rem 0
+  animation: linearOpacity .2s linear
   &+&
     margin-top: .6rem
   img
