@@ -22,7 +22,7 @@ class App extends Component {
         return (
             <div className="App">
                 <NavState history={customHistory} />
-                <div className={`MainContent  ${this.props.isScreen().value ? 'hidden' : 'show'}`}>
+                <div className={`MainContent  ${this.props.isScreen().value ? 'hidden' : 'show'} ${this.props.isScreen().isTransit && 'ContentTransit'}`} style={{transform: `translateX(${this.props.isScreen().leftSkewing}px)`}}>
                     <Router history={customHistory}>
                         <Switch>
                             <Route exact path="/" component={ChatList}/>

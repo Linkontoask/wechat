@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Icon } from 'antd'
 import '../style/NavState.sass'
-import {ChatMainPos, PositionCurrent, ShowScreen} from "../actions/NavTag";
+import {ChatMainPos, PositionCurrent, RouterLeft, ShowScreen} from "../actions/NavTag";
 
 class NavState extends Component{
     render() {
@@ -21,6 +21,7 @@ class NavState extends Component{
         this.props.dispatch(ShowScreen(false));
         this.props.dispatch(PositionCurrent(1));
         this.props.dispatch(ChatMainPos('110%'));
+        this.props.dispatch(RouterLeft(0, true));
     }
 }
 

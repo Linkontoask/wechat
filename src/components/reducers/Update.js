@@ -5,7 +5,9 @@ const initialState = {
     text: '微信',
     value: false,
     currentIndex: 1,
-    left: '110%'
+    left: '110%',
+    leftSkewing: 0,
+    isTransit: true
 };
 let initState = ['微信','通讯录'];
 export const UpdateNav = (state = initialState, action) => {
@@ -35,6 +37,12 @@ export const UpdateNav = (state = initialState, action) => {
             return {
                 ...state,
                 left: action.left
+            };
+        case types.ROUTER_LEFT:
+            return {
+                ...state,
+                leftSkewing: action.leftSkewing,
+                isTransit: action.isTransit
             };
         default: return state;
     }

@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ShowScreen , PositionCurrent, ChatMainPos} from '../actions/NavTag'
+import {ShowScreen, PositionCurrent, ChatMainPos, RouterLeft} from '../actions/NavTag'
 import '../style/ChatList.sass'
 import SearchWechat from './base/Search'
 import Hammer from 'react-hammerjs'
 import Delete from './base/Delete'
 import { Icon, List, Avatar } from 'antd'
+import $ from 'jquery'
 
 class ChatList extends Component{
     deltaTime;
     additionalEvent;
     constructor(props) {
         super(props);
+        this.clientWidth = 0;
         this.state = {
             right: [],
             data: [
@@ -94,12 +96,17 @@ class ChatList extends Component{
             right: arr,
         });
     }
+    componentDidMount() {
+        this.clientWidth = $('.ChatList')[0].clientWidth;
+    }
     onTap(id, type) {
         this.Initialization();
         // if (type === 'normal') this.props.history.push(`/chatInterface/${ChatList.enCode(id + '+link')}`);
         this.props.dispatch(ShowScreen(true));
         this.props.dispatch(PositionCurrent(1));
         this.props.dispatch(ChatMainPos(0));
+        console.log(-(this.clientWidth - 100))
+        this.props.dispatch(RouterLeft(-(this.clientWidth - 100), true));
     }
     static enCode(value) {
         return window.btoa(unescape(encodeURIComponent(value)));

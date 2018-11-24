@@ -7,7 +7,7 @@ import Hammer from 'react-hammerjs'
 import { LineCose } from "./base/LineCose";
 import EntryCommunication from './EntryCommunication';
 import $ from 'jquery'
-import {ShowScreen, PositionCurrent, ChatMainPos} from "../actions/NavTag";
+import {ShowScreen, PositionCurrent, ChatMainPos, RouterLeft} from "../actions/NavTag";
 
 class ChatMain extends Component{
     constructor(props) {
@@ -48,6 +48,7 @@ class ChatMain extends Component{
                 isBack: false
             })
         }
+        this.props.dispatch(RouterLeft(Math.ceil(this.state.left * 0.7 - 230), false ));
         setTimeout(() => {
             this.scale = 1 - (this.state.left / this.state.clientWidth).toFixed(1);
             this.props.dispatch(PositionCurrent(this.scale));
@@ -60,6 +61,7 @@ class ChatMain extends Component{
                 left: this.state.clientWidth,
                 isTransit: true
             });
+            this.props.dispatch(RouterLeft(0, true));
             setTimeout(() => {
                 // 动画完成改变状态
                 this.props.dispatch(ShowScreen(false));

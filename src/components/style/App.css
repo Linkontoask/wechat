@@ -34,12 +34,17 @@
     width: 100%;
 }
 
+.ContentTransit {
+    transition: transform .6s;
+}
+
 .hidden {
     z-index: 0;
 }
 
 .show {
     z-index: 3;
+
 }
 
 @keyframes App-logo-spin {

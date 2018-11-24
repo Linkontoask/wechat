@@ -34,3 +34,11 @@ export const ChatMainPos = posX => {
         left: posX
     }
 };
+
+export const RouterLeft = (x, is) => {
+    return {
+        type: types.ROUTER_LEFT,
+        leftSkewing: x,
+        isTransit: is
+    }
+};
