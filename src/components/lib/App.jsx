@@ -22,16 +22,18 @@ class App extends Component {
         return (
             <div className="App">
                 <NavState history={customHistory} />
-                <Router history={customHistory}>
-                    <Switch>
-                        <Route exact path="/" component={ChatList}/>
-                        <Route path="/contacts" component={ContactsList}/>
-                        <Route path="/friends" component={Friends}/>
-                        <Route path="/setting" component={Setting}/>
-                        <Route path="/chatInterface/:id" component={ChatMain}/>
-                    </Switch>
-                </Router>
-                {!this.props.isScreen() && <NavTag history={customHistory} />}
+                <div className={`MainContent  ${this.props.isScreen().value ? 'hidden' : 'show'}`}>
+                    <Router history={customHistory}>
+                        <Switch>
+                            <Route exact path="/" component={ChatList}/>
+                            <Route path="/contacts" component={ContactsList}/>
+                            <Route path="/friends" component={Friends}/>
+                            <Route path="/setting" component={Setting}/>
+                        </Switch>
+                    </Router>
+                </div>
+                <ChatMain />
+                <NavTag history={customHistory} zIndex={this.props.isScreen().value ? 1 : 2} />
             </div>
         );
     }
@@ -40,7 +42,7 @@ class App extends Component {
 const mapStateToProps = (state) => {
     return {
         isScreen() {
-            return state.value;
+            return state;
         }
     }
 };

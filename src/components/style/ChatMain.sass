@@ -1,7 +1,15 @@
 .ChatMain
+  position: relative
   height: calc(100% - 2.6rem)
   background-color: #f1f1f1
+  left: 110%
+  opacity: 1
+  z-index: 3
+  box-shadow: -2px 0 10px 0px #a0a0a0
+  transition: left .2s
   .ChatContent
     padding: 0 .6rem
     height: calc(100% - 3rem)
     overflow-y: auto
+.transit
+  transition: transform .2s

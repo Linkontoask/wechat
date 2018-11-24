@@ -6,7 +6,6 @@ import { Icon, Input  } from "antd";
 const IconFont = Icon.createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_836575_gxdpqhmux69.js',
 });
-const { TextArea } = Input;
 
 export default class EntryCommunication extends Component {
     constructor() {
@@ -20,11 +19,7 @@ export default class EntryCommunication extends Component {
         return (
             <div className="EntryCommunication">
                 <IconFont type="icon-keyboard" />
-                <TextArea
-                    autosize={{
-                        maxRows: 1
-                    }}
-                    placeholder="default size"
+                <Input
                     onPressEnter={this.props.keySend}
                     onChange={this.onChangeValue.bind(this)}
                     ref={node => this.input = node}

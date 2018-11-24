@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ShowScreen } from '../actions/NavTag'
+import { ShowScreen , PositionCurrent, ChatMainPos} from '../actions/NavTag'
 import '../style/ChatList.sass'
 import SearchWechat from './base/Search'
 import Hammer from 'react-hammerjs'
@@ -16,16 +16,22 @@ class ChatList extends Component{
             right: [],
             data: [
                 {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 2',id: 1, type: 'normal'},
-                {title: 'Ant Design Title 3',id: 2, type: 'normal'},
-                {title: 'Ant Design Title 4',id: 3, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
             ]
         }
     }
     render() {
 
         return (
-            <div className="ChatList">
+            <div className={`ChatList`}>
                 <SearchWechat />
                 {this.state.data.length !== 0 && <div className="swiper-box">
                     {this.state.data.map((item,index)=>{
@@ -90,8 +96,10 @@ class ChatList extends Component{
     }
     onTap(id, type) {
         this.Initialization();
-        if (type === 'normal') this.props.history.push(`/chatInterface/${ChatList.enCode(id + '+link')}`);
+        // if (type === 'normal') this.props.history.push(`/chatInterface/${ChatList.enCode(id + '+link')}`);
         this.props.dispatch(ShowScreen(true));
+        this.props.dispatch(PositionCurrent(1));
+        this.props.dispatch(ChatMainPos(0));
     }
     static enCode(value) {
         return window.btoa(unescape(encodeURIComponent(value)));
@@ -121,4 +129,14 @@ class ChatList extends Component{
     }
 }
 
-export default connect()(ChatList)
+function connectState(state) {
+    return {
+        getState() {
+            return state
+        }
+    }
+}
+
+export default connect(
+    connectState
+)(ChatList)

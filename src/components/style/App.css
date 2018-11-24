@@ -1,4 +1,5 @@
 .App {
+  position: relative;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -22,6 +23,23 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.MainContent {
+    position: absolute;
+    left: 0;
+    height: calc(100% - 5.6rem);
+    overflow-y: auto;
+    top: 2.6rem;
+    width: 100%;
+}
+
+.hidden {
+    z-index: 0;
+}
+
+.show {
+    z-index: 3;
 }
 
 @keyframes App-logo-spin {

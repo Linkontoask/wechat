@@ -1,8 +1,10 @@
 @keyframes linearOpacity
   0%
     opacity: 0
+    margin-top: 1.2rem
   100%
     opacity: 1
+    margin-top: 0.6rem
 .LineCose
   max-height: 5.6rem
   display: flex
@@ -27,6 +29,7 @@
     color: white
     font-size: 0.7rem
     border-radius: 0.2rem
+    word-break: break-word
     letter-spacing: .03rem
   &[data-type="1"]
     flex-direction: row
@@ -38,7 +41,7 @@
     border: 1px solid #e6e6e6
   p:after,p:before
     border: 0 solid transparent
-    content: ' '
+    content: ''
     height: 0
     left: 100%
     top: 50%
@@ -53,4 +56,5 @@
     border-left-color: #434250
     left: auto
     right: -16px
-
+.LineCose:last-child
+  margin-bottom: .6rem

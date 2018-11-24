@@ -3,7 +3,9 @@ import * as types from '../constants/ActionTypes';
 const initialState = {
     index: 0,
     text: '微信',
-    value: false
+    value: false,
+    currentIndex: 1,
+    left: '110%'
 };
 let initState = ['微信','通讯录'];
 export const UpdateNav = (state = initialState, action) => {
@@ -23,6 +25,16 @@ export const UpdateNav = (state = initialState, action) => {
                 ...state,
                 value: action.value,
                 text: initState[state.index]
+            };
+        case types.POS_CURRENT:
+            return {
+                ...state,
+                currentIndex: action.currentIndex
+            };
+        case types.CHAT_MAIN_POS:
+            return {
+                ...state,
+                left: action.left
             };
         default: return state;
     }

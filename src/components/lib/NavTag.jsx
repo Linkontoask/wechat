@@ -3,6 +3,7 @@ import '../style/NavTag.sass'
 import {Icon, Row, Col } from 'antd'
 import { connect } from 'react-redux'
 import { NavIndex, FixedPage } from '../actions/NavTag'
+import PropTypes from 'prop-types'
 
 let url = ['/', '/contacts', '/friends', '/setting'];
 class NavTag extends Component{
@@ -31,7 +32,7 @@ class NavTag extends Component{
 
     render() {
         return (
-            <div className="NavTag">
+            <div className={`NavTag`} style={{zIndex: this.props.zIndex, opacity: this.props.opacity}}>
                 <Row gutter={8} justify="space-between">
                     {this.state.nav.map((item, index)=>{
                         return (
@@ -73,6 +74,14 @@ function connectState(state) {
         }
     }
 }
+
+NavTag.propTypes = {
+    zIndex: PropTypes.number
+};
+NavTag.defaultProps = {
+    zIndex: 2,
+    opacity: 1
+};
 
 export default connect(
     connectState

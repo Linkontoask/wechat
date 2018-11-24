@@ -20,3 +20,17 @@ export const ShowScreen = bool => {
         value: bool
     }
 };
+
+export const PositionCurrent = posX => {
+    return {
+        type: types.POS_CURRENT,
+        currentIndex: posX
+    }
+};
+
+export const ChatMainPos = posX => {
+    return {
+        type: types.CHAT_MAIN_POS,
+        left: posX
+    }
+};
