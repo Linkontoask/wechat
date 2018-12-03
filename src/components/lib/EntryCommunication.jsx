@@ -10,6 +10,9 @@ const IconFont = Icon.createFromIconfontCN({
 export default class EntryCommunication extends Component {
     constructor() {
         super();
+        this.offsetTop = 0;
+        this.current = -1;
+        this.oldHeight = -1;
         this.state = {
             value: ''
         }
@@ -17,11 +20,13 @@ export default class EntryCommunication extends Component {
     render() {
         const { value } = this.state;
         return (
-            <div className="EntryCommunication">
+            <div className="EntryCommunication" id={"entry"}>
                 <IconFont type="icon-keyboard" />
                 <Input
                     onPressEnter={this.props.keySend}
                     onChange={this.onChangeValue.bind(this)}
+                    onFocus={this.handelFocus.bind(this)}
+                    onBlur={this.handelBlur.bind(this)}
                     ref={node => this.input = node}
                     value={value} />
                 <IconFont type="icon-jiahao-fill" />
@@ -29,10 +34,32 @@ export default class EntryCommunication extends Component {
         )
     }
     onChangeValue (e) {
+        e.preventDefault();
         this.setState({ value: e.target.value });
+    }
+    handelBlur(e) {
+        e.preventDefault();
+
+        let obj = document.querySelector('.ChatContent');
+        obj.style.height = this.oldHeight + 'px'
+    }
+    handelFocus(e) {
+        e.preventDefault();
+
+        setTimeout(() => {
+            let obj = document.querySelector('.ChatContent');
+            if (this.current === -1) {
+                this.current = this.offsetTop - document.querySelector('#entry').offsetTop;
+            }
+            obj.style.height = obj.offsetHeight - this.current + 'px';
+        }, 1000);
     }
     emitEmpty() {
         this.setState({ value: '' });
+    }
+    componentDidMount() {
+        this.offsetTop = document.querySelector('#entry').offsetTop || 200;
+        this.oldHeight = document.querySelector('.ChatContent').offsetHeight;
     }
 }
 

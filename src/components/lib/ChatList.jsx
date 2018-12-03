@@ -105,7 +105,6 @@ class ChatList extends Component{
         this.props.dispatch(ShowScreen(true));
         this.props.dispatch(PositionCurrent(1));
         this.props.dispatch(ChatMainPos(0));
-        console.log(-(this.clientWidth - 100))
         this.props.dispatch(RouterLeft(-(this.clientWidth - 100), true));
     }
     static enCode(value) {
@@ -125,7 +124,6 @@ class ChatList extends Component{
             });
         }, 400);
 
-        console.log(index)
     }
     removeHandle(index) {
         let arr = Object.assign([], this.state.right);
