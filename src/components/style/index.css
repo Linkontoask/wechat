@@ -23,6 +23,10 @@ ul, li {
 }
 
 #root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
     width: 100%;
     height: 100%;
 }

@@ -37,6 +37,9 @@ export default class EntryCommunication extends Component {
         e.preventDefault();
         this.setState({ value: e.target.value });
     }
+    activeBlur() {
+        this.input.blur();
+    }
     handelBlur(e) {
         e.preventDefault();
 

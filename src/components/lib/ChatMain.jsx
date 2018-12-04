@@ -33,6 +33,8 @@ class ChatMain extends Component{
     }
     sign(e) {
         e.preventDefault();
+
+        this.refs.message.activeBlur();
         // console.log(e.velocityX)
         if (!this.isHandelMove) {
             return false;
@@ -57,6 +59,11 @@ class ChatMain extends Component{
             this.scale = 1 - (this.state.left / this.state.clientWidth).toFixed(1);
             this.props.dispatch(PositionCurrent(this.scale));
         }, 0);
+        if (this.state.left < 0) {
+            this.setState({
+                left: 0
+            })
+        }
     }
     handelEnd(e) {
         e.preventDefault();
