@@ -125,7 +125,6 @@ class ChatList extends Component{
             });
         }, 400);
 
-        console.log(index)
     }
     removeHandle(index) {
         let arr = Object.assign([], this.state.right);

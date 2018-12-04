@@ -67,11 +67,11 @@ class ChatMain extends Component{
                 isTransit: true
             });
             this.props.dispatch(RouterLeft(0, true));
+            this.props.dispatch(ChatMainPos('110%'));
             setTimeout(() => {
                 // 动画完成改变状态
                 this.props.dispatch(ShowScreen(false));
                 this.props.dispatch(PositionCurrent(1));
-                this.props.dispatch(ChatMainPos('110%'));
                 this.setState({
                     left: 0,
                     isTransit: false
@@ -168,8 +168,15 @@ class ChatMain extends Component{
             this.setState({
                 ...this.state,
                 list
-            })
+            });
+            setTimeout(() => {
+                this.startMoveBottom()
+            }, 10);
         }
+    }
+    startMoveBottom() {
+        let node = $('.ChatContent');
+        node.animate({scrollTop: node[0].scrollHeight - node[0].clientHeight} , 200);
     }
 }
 
