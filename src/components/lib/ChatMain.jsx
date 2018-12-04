@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../style/ChatMain.sass';
-// import { callApi } from '../http/fetch'
-// import {FixedPage} from "../actions/NavTag";
+import { callApi } from '../http/fetch'
+import {FixedPage} from "../actions/NavTag";
 import Hammer from 'react-hammerjs'
 import { LineCose } from "./base/LineCose";
 import EntryCommunication from './EntryCommunication';
 import $ from 'jquery'
 import {ShowScreen, PositionCurrent, ChatMainPos, RouterLeft} from "../actions/NavTag";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+import emitter from '../http/ev'
 
 class ChatMain extends Component{
     constructor(props) {
@@ -18,6 +21,7 @@ class ChatMain extends Component{
             id: -1,
             list: [],
             left: 0,
+            zIndex: 3,
             isTransit: false,
             isBack: false,
             clientWidth: 0
@@ -59,6 +63,7 @@ class ChatMain extends Component{
         if (this.state.isBack) {
             this.setState({
                 left: this.state.clientWidth,
+                zIndex: -1,
                 isTransit: true
             });
             this.props.dispatch(RouterLeft(0, true));
@@ -71,7 +76,7 @@ class ChatMain extends Component{
                     left: 0,
                     isTransit: false
                 })
-            }, 100);
+            }, 400);
             return true;
         }
         this.setState({
@@ -81,7 +86,7 @@ class ChatMain extends Component{
     }
     render() {
         return (
-            <div className={`ChatMain ${this.state.isTransit && 'transit'}`} style={{transform: `translateX(${this.state.left}px)`, left: this.props.getState().left}}>
+            <div className={`ChatMain ${this.state.isTransit && 'transit'}`} style={{transform: `translateX(${this.state.left}px)`, left: this.props.getState().left, zIndex: this.state.zIndex}}>
                 <Hammer
                     onPanStart={this.handelStart.bind(this)}
                     onPan={this.sign.bind(this)}
@@ -116,25 +121,36 @@ class ChatMain extends Component{
         this.setState({
             clientWidth: $('.ChatMain')[0].clientWidth
         });
-        // let id = decodeURIComponent(escape(window.atob(this.props.match.params.id))).replace(/\+link$/g, '');
-        // this.jsonLoad(id);
+        emitter.addListener('getContactsList', id => {
+            this.updateId(id);
+        })
+    }
+    updateId(id) {
+        this.setState({
+            id,
+            zIndex: 3
+        });
+        const promise = this.jsonLoad(id);
+        console.log(promise)
     }
     async jsonLoad (id) {
-        // let { json } = await callApi(`http://172.16.1.69:7300/mock/5bf60e808639da0a80f7938b/chatListAll?id=${id}`);
-        // this.setState({
-        //     id: json.data.id,
-        //     list: json.data.list
-        // });
-        // this.props.dispatch(FixedPage(json.data.name));
-        // console.log(json);
+        let { json } = await callApi(`http://172.16.1.69:7300/mock/5bf60e808639da0a80f7938b/chatListAll?id=${id}`);
+        this.setState({
+            id: json.data.id,
+            list: json.data.list
+        });
+        this.props.dispatch(FixedPage(json.data.name));
+        console.log(json);
     }
     getInfo() {
         if (this.refs.message.state.value === '') return false;
         this.sendMessage(this.refs.message.state.value.replace(/\s/g, '\u00a0'));
-        // this.refs.message.emitEmpty();
-        setTimeout(()=>{
-            this.refs.message.emitEmpty(); // 延迟 清空回车 \n
-        }, 0)
+        this.refs.message.emitEmpty();
+        this.scrBottom()
+    }
+    scrBottom() {
+        let node = $('.ChatContent');
+        node.animate({scrollTop: node[0].scrollHeight - node[0].clientHeight} , 200);
     }
     async sendMessage (message) {
         // let { json } = await callApi(`localhost:8000/message?m=${message}`);
@@ -171,7 +187,10 @@ function connectState(state) {
         }
     }
 }
+ChatMain.propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+};
 
 export default connect(
     connectState
-)(ChatMain)
+)(withCookies(ChatMain))

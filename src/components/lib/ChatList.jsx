@@ -6,7 +6,10 @@ import SearchWechat from './base/Search'
 import Hammer from 'react-hammerjs'
 import Delete from './base/Delete'
 import { Icon, List, Avatar } from 'antd'
+import { withCookies, Cookies } from 'react-cookie'
+import { instanceOf } from 'prop-types'
 import $ from 'jquery'
+import emitter from '../http/ev'
 
 class ChatList extends Component{
     deltaTime;
@@ -18,15 +21,11 @@ class ChatList extends Component{
             right: [],
             data: [
                 {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
-                {title: 'Ant Design Title 1',id: 0, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 1, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 2, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 3, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 4, type: 'normal'},
+                {title: 'Ant Design Title 1',id: 5, type: 'normal'},
             ]
         }
     }
@@ -101,7 +100,9 @@ class ChatList extends Component{
     }
     onTap(id, type) {
         this.Initialization();
-        // if (type === 'normal') this.props.history.push(`/chatInterface/${ChatList.enCode(id + '+link')}`);
+        const { cookies } = this.props;
+        cookies.set('id', id);
+        emitter.emit('getContactsList', id);
         this.props.dispatch(ShowScreen(true));
         this.props.dispatch(PositionCurrent(1));
         this.props.dispatch(ChatMainPos(0));
@@ -134,6 +135,10 @@ class ChatList extends Component{
     }
 }
 
+ChatList.propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+};
+
 function connectState(state) {
     return {
         getState() {
@@ -144,4 +149,4 @@ function connectState(state) {
 
 export default connect(
     connectState
-)(ChatList)
+)(withCookies(ChatList))
